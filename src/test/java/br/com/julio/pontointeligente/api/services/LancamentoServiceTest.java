@@ -37,13 +37,13 @@ public class LancamentoServiceTest {
     public void setUp(){
         BDDMockito.given(this.lancamentoRepository.findByFuncionarioId(Mockito.anyLong(), Mockito.any(PageRequest.class)))
                 .willReturn(new PageImpl<Lancamento>(new ArrayList<Lancamento>()));
-        BDDMockito.given(this.lancamentoRepository.findById(Mockito.anyLong())).willReturn(Optional.of(new Lancamento()));
+        BDDMockito.given(this.lancamentoRepository.findOne(Mockito.anyLong())).willReturn(new Lancamento());
         BDDMockito.given(this.lancamentoRepository.save(Mockito.any(Lancamento.class))).willReturn(new Lancamento());
     }
 
     @Test
     public void testBuscarLancamentoPorFuncionarioId(){
-        Page<Lancamento> lancamentos = this.lancamentoService.buscarPorFuncionarioId(1L,  PageRequest.of(0,10));
+        Page<Lancamento> lancamentos = this.lancamentoService.buscarPorFuncionarioId(1L, new PageRequest(0,10));
 
         assertNotNull(lancamentos);
     }
